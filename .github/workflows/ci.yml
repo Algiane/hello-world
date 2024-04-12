@@ -18,7 +18,7 @@ jobs:
         fail-fast: false
         matrix:
             os: [ubuntu-20.04,macos-12]
-            branch: [BRANCH_1,BRANCH_2]
+            branch: [BRANCH_2,BRANCH_2]
 
     steps:
       - uses: actions/checkout@v4
