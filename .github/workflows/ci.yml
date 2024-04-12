@@ -17,7 +17,7 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-20.04,macos-12]
+            os: [ubuntu-20.04,ubuntu-24.04]
             branch: [BRANCH_1,BRANCH_2]
 
     steps:
