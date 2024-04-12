@@ -26,15 +26,21 @@ jobs:
           path: hello-world
 
       - name: compilation
+        if: matrix.os == 'ubuntu-20.04'
         run: |
           gcc -D ${{ matrix.branch }} -O0 -fprofile-arcs -ftest-coverage hello-world/hello-world.c
+
+      - name: compilation
+        if: matrix.os != 'ubuntu-20.04'
+        run: |
+          gcc -D ${{ matrix.branch }} hello-world/hello-world.c
+
 
       - name: exec
         run: |
           ./a.out 2 1
 
       - name: Upload coverage to Codecov
-        if: matrix.os == 'ubuntu-20.04'
         uses: codecov/codecov-action@v4
         with:
           fail_ci_if_error: true
