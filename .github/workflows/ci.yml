@@ -31,7 +31,7 @@ jobs:
 
       - name: exec
         run: |
-          ./a.out 1 2
+          ./a.out 2 1
 
       - name: Upload coverage to Codecov
         if: matrix.os == 'ubuntu-20.04'
