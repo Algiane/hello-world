@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
   }
   else {
    printf("2: Bye, World!\n");
-   assert(a<b);
+   assert(a!=0 && b!=0);
   }
 
    return 0;
