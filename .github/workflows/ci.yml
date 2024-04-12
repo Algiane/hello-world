@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  # run tests on push events
+  push:
+  # run tests on PR events
+  pull_request:
+    types: [opened, synchronize]
+
+  workflow_dispatch:
+
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+        fail-fast: false
+        matrix:
+            os: [ubuntu-20.04]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: hello-world
+
+      - name: compilation
+        run: |
+          gcc -O0 -fprofile-arcs -ftest-coverage hello-world/hello-world.c
+
+      - name: exec
+        run: |
+          ./a.out
+
+      - name: Upload coverage to Codecov
+        if: matrix.os == 'ubuntu-20.04'
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+          root_dir: .
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
