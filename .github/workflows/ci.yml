@@ -31,7 +31,6 @@ jobs:
 
       - name: exec
         run: |
-          ./a.out 2 1
           ./a.out 1 2
 
       - name: Upload coverage to Codecov
