@@ -11,6 +11,8 @@
 int main(int argc, char* argv[]) {
   int a,b;
 
+  a = atoi(argv[1]);
+  b = atoi(argv[2]);
 
   if ( VAL ) {
     printf("Hello, World!\n");
@@ -20,8 +22,6 @@ int main(int argc, char* argv[]) {
    assert(a!=0 && b!=0);
   }
 
-  a = atoi(argv[1]);
-  b = atoi(argv[2]);
 
   if ( a<b ) {
     printf("2: Hello, World!\n");
