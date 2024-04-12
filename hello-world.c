@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
   }
   else {
    printf("Bye, World!\n");
-   assert(a<b);
+   assert(a!=0 && b!=0);
   }
 
   a = atoi(argv[1]);
