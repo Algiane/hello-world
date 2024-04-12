@@ -34,7 +34,7 @@ jobs:
           ./a.out 2 1
 
       - name: Upload coverage to Codecov
-        if: matrix.os == 'ubuntu-20.04'
+        #if: matrix.os == 'ubuntu-20.04'
         uses: codecov/codecov-action@v4
         with:
           fail_ci_if_error: true
