@@ -30,16 +30,17 @@ jobs:
         run: |
           #gcc -D ${{ matrix.branch }} -O0 -fprofile-arcs -ftest-coverage hello-world/hello-world.c
           gcc -D BRANCH_1 -O0 -fprofile-arcs -ftest-coverage hello-world/hello-world.c
+          ./a.out 2 1
 
       - name: compilation
         if: matrix.os != 'ubuntu-20.04'
         run: |
           gcc -D  BRANCH_2 -O0 -fprofile-arcs -ftest-coverage hello-world/hello-world.c
+          ./a.out 1 2
 
-
-      - name: exec
-        run: |
-          ./a.out 2 1
+      #- name: exec
+      #  run: |
+      #    ./a.out 2 1
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
