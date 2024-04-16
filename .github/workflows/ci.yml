@@ -32,15 +32,9 @@ jobs:
           gcc -D BRANCH_1 -O0 -fprofile-arcs -ftest-coverage hello-world/hello-world.c
           ./a.out 2 1
 
-      - name: compilation
-        if: matrix.os != 'ubuntu-20.04'
+      - name: install and use lcov
         run: |
-          gcc -D  BRANCH_2 -O0 -fprofile-arcs -ftest-coverage hello-world/hello-world.c
-          ./a.out 1 2
-
-      #- name: exec
-      #  run: |
-      #    ./a.out 2 1
+          sudo apt install -y lcov
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
