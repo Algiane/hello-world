@@ -36,7 +36,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - apt update -y
     - apt install g++ libopenmpi-dev -y
     - mkdir -p $BUILD_DIR
-    - gcc -D BRANCH_1 -O0  -fPIC -fprofile-arcs -ftest-coverage -o $BUILD_DIR hello-world.c
+    - gcc -D BRANCH_1 -O0  -fPIC -fprofile-arcs -ftest-coverage -o $BUILD_DIR/hello-world.c
     - echo "Compile complete."
   artifacts:
     expose_as: 'binary' # Can be downloaded from ci web interface
