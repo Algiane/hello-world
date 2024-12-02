@@ -20,6 +20,7 @@ stages:          # List of stages for jobs, and their order of execution
   - configure
   - build
   - test
+  - coverage
   - deploy
 
 variables:
@@ -59,7 +60,7 @@ unit-test-job:   # This job runs in the test stage.
     paths: ['$BUILD_DIR/*.gcno','$BUILD_DIR/*.gcda']
 
 lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+  stage: coverage    # It can run at the same time as unit-test-job (in parallel).
   tags:
     - ci.inria.fr
     - small
@@ -69,6 +70,7 @@ lint-test-job:   # This job also runs in the test stage.
     - apt update -y
     - apt install -y gcovr
     - cd $BUILD_DIR
+    - ls $BUILD_DIR
     - mkdir -p $COVERAGE_DIR
     - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
   
