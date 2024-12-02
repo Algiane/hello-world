@@ -22,6 +22,10 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - deploy
 
+variables:
+  BUILD_DIR: build-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+  COVERAGE_DIR: coverage
+
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   tags: ['ci.inria.fr', 'small'] # Inria's shared runners
@@ -31,12 +35,13 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code..."
     - apt update -y
     - apt install g++ libopenmpi-dev -y
-    - gcc -D BRANCH_1 -O0 -fprofile-arcs -ftest-coverage hello-world.c
+    - mkdir -p $BUILD_DIR
+    - gcc -D BRANCH_1 -O0  -fPIC -fprofile-arcs -ftest-coverage -o $BUILD_DIR hello-world.c
     - echo "Compile complete."
   artifacts:
-    expose_as: 'binary'
+    expose_as: 'binary' # Can be downloaded from ci web interface
     expire_in: 2 days
-    paths: ['a.out']
+    paths: ['$BUILD_DIR/a.out']
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
@@ -45,10 +50,13 @@ unit-test-job:   # This job runs in the test stage.
 
   script:
     - echo "Running unit tests... This will take about 60 seconds."
-    - ls *
+    - cd $BUILD_DIR
     - ./a.out 2 5
     - ./a.out 5 2
     - echo "Success"
+  artifacts:
+    expire_in: 2 days
+    paths: ['$BUILD_DIR/*.gcno','$BUILD_DIR/*.gcda']
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
@@ -60,16 +68,19 @@ lint-test-job:   # This job also runs in the test stage.
   script:
     - apt update -y
     - apt install -y gcovr
-    - echo ${CI_PROJECT_DIR}
-    - ls ${CI_PROJECT_DIR}
-    - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o coverage.xml --root ${CI_PROJECT_DIR}
+    - mkdir -p $COVERAGE_DIR
+    - cd $BUILD_DIR
+    - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
+  
+  coverage: '/^TOTAL.+?(\d+\%)$/'
+
   artifacts:
     name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
     expire_in: 2 days
     reports:
       coverage_report:
         coverage_format: cobertura
-        path: coverage.xml
+        path: $COVERAGE_DIR/coverage.xml
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
