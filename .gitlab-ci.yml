@@ -68,8 +68,8 @@ lint-test-job:   # This job also runs in the test stage.
   script:
     - apt update -y
     - apt install -y gcovr
-    - mkdir -p $COVERAGE_DIR
     - cd $BUILD_DIR
+    - mkdir -p $COVERAGE_DIR
     - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
   
   coverage: '/^TOTAL.+?(\d+\%)$/'
