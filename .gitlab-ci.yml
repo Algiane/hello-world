@@ -60,6 +60,11 @@ build-job:       # This job runs in the build stage, which runs first.
         coverage_format: cobertura
         path: $COVERAGE_DIR/cobertura/coverage.xml
 
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: $COVERAGE_DIR/coverage.xml
+
 #unit-test-job:   # This job runs in the test stage.
 #  stage: test    # It only starts when the job in the build stage completes successfully.
 #  tags: ['ci.inria.fr', 'small'] # Inria's shared runners
