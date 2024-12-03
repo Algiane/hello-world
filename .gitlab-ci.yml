@@ -25,7 +25,7 @@ stages:          # List of stages for jobs, and their order of execution
 
 variables:
   BUILD_DIR: build-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
-  COVERAGE_DIR: coverage
+  COVERAGE_DIR: $BUILD_DIR/coverage
   SRC_DIR: ${CI_PROJECT_DIR}/src
 
 build-job:       # This job runs in the build stage, which runs first.
@@ -46,8 +46,9 @@ build-job:       # This job runs in the build stage, which runs first.
     - mkdir -p $COVERAGE_DIR
     - mkdir -p $COVERAGE_DIR/cobertura
     - mkdir -p $COVERAGE_DIR/html
+    - cd ..
     - >-
-     gcovr . -r ${SRC_DIR} --exclude-unreachable-branches --print-summary --txt
+     gcovr $BUILD_DIR -r $SRC_DIR --exclude-unreachable-branches --print-summary --txt
      --cobertura-pretty --cobertura $COVERAGE_DIR/cobertura/coverage.xml
 
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
