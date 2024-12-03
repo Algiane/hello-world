@@ -48,7 +48,11 @@ build-job:       # This job runs in the build stage, which runs first.
     - mkdir -p $COVERAGE_DIR/cobertura
     - mkdir -p $COVERAGE_DIR/html
     - >-
-     gcovr $BUILD_DIR -r $SRC_DIR --exclude-unreachable-branches --print-summary --txt
+     echo "gcovr $BUILD_DIR -r $SRC_DIR --exclude-unreachable-branches --print-summary --txt
+     --cobertura-pretty --cobertura $COVERAGE_DIR/cobertura/coverage.xml"
+
+    - >-
+     gcovr -v $BUILD_DIR -r $SRC_DIR --exclude-unreachable-branches --print-summary --txt
      --cobertura-pretty --cobertura $COVERAGE_DIR/cobertura/coverage.xml
 
   coverage: '/^TOTAL.*\s+(\d+\%)$/'
