@@ -43,7 +43,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - ./a.out 2 5
     - ./a.out 5 2
     - mkdir -p $COVERAGE_DIR
-    - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
+    - gcovr --cobertura --cobertura-pretty --exclude-unreachable-branches -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
 
   coverage: '/^line.+?(\d+\%)$/'
 
@@ -51,6 +51,11 @@ build-job:       # This job runs in the build stage, which runs first.
     expose_as: 'binary' # Can be downloaded from ci web interface
     expire_in: 2 days
     paths: ['$BUILD_DIR']
+
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: $COVERAGE_DIR/coverage.xml
 
 #unit-test-job:   # This job runs in the test stage.
 #  stage: test    # It only starts when the job in the build stage completes successfully.
