@@ -40,10 +40,11 @@ build-job:       # This job runs in the build stage, which runs first.
     - mkdir -p $BUILD_DIR
     - gcc -D BRANCH_1 -O0  -fPIC --coverage -g -O0 -o $BUILD_DIR/a.out $SRC_DIR/*.c
     - echo "Compile complete."
-    - cd $BUILD_DIR
+    - cd $BUILD_DIR && pwd
     - ./a.out 2 5
     - ./a.out 5 2
     - cd ..
+    - ls $BUILD_DIR
     - mkdir -p $COVERAGE_DIR
     - mkdir -p $COVERAGE_DIR/cobertura
     - mkdir -p $COVERAGE_DIR/html
