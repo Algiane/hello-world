@@ -46,7 +46,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - mkdir -p $COVERAGE_DIR
     - mkdir -p $COVERAGE_DIR/cobertura
     - mkdir -p $COVERAGE_DIR/html
-    - >
+    - >-
      gcovr . -r ${SRC_DIR} --exclude-unreachable-branches --print-summary --txt
       --cobertura-pretty --cobertura $COVERAGE_DIR/cobertura/coverage.xml
       --html-title 'ECOGEN Coverage Report: ${CI_COMMIT_REF_NAME}' --html-details --html-title --html $COVERAGE_DIR/html/coverage.html 
