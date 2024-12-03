@@ -8,6 +8,8 @@
 #define VAL 0
 #endif
 
+#include "hw.h"
+
 int main(int argc, char* argv[]) {
   int a,b,c;
 
@@ -25,12 +27,13 @@ int main(int argc, char* argv[]) {
     printf("Hello, World!\n");
     assert(a!=0);
     assert(a!=0 && b!=0);
-    puts("coucou");
+    f();
   }
   else {
     printf("Bye, World!\n");
     assert(a!=0);
     assert(a!=0 && b!=0);
+    g();
   }
 
 
