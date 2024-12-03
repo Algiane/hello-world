@@ -26,6 +26,7 @@ stages:          # List of stages for jobs, and their order of execution
 variables:
   BUILD_DIR: build-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
   COVERAGE_DIR: coverage
+  SRC_DIR: ${CI_PROJECT_DIR}
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
@@ -37,15 +38,20 @@ build-job:       # This job runs in the build stage, which runs first.
     - apt update -y
     - apt install g++ libopenmpi-dev gcovr -y
     - mkdir -p $BUILD_DIR
-    - gcc -D BRANCH_1 -O0  -fPIC -fprofile-arcs -ftest-coverage -o $BUILD_DIR/a.out hello-world.c
+    - gcc -D BRANCH_1 -O0  -fPIC --coverage -g -O0 -o $BUILD_DIR/a.out hello-world.c
     - echo "Compile complete."
     - cd $BUILD_DIR
     - ./a.out 2 5
     - ./a.out 5 2
     - mkdir -p $COVERAGE_DIR
-    - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
+    - mkdir -p $COVERAGE_DIR/cobertura
+    - mkdir -p $COVERAGE_DIR/html
+    - |
+     gcovr . -r ${SRC_DIR} --exclude-unreachable-branches --print-summary --txt
+      --cobertura-pretty --cobertura $COVERAGE_DIR/cobertura/coverage.xml
+      --html-title 'ECOGEN Coverage Report: ${CI_COMMIT_REF_NAME}' --html-details --html-title --html $COVERAGE_DIR/html/coverage.html 
 
-  coverage: '/^line.+?(\d+\%)$/'
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
 
   artifacts:
     expose_as: 'binary' # Can be downloaded from ci web interface
