@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
     printf("Hello, World!\n");
     assert(a!=0);
     assert(a!=0 && b!=0);
+    puts("coucou");
   }
   else {
     printf("Bye, World!\n");
