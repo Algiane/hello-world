@@ -43,7 +43,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - cd $BUILD_DIR && pwd
     - ./a.out 2 5
     - ./a.out 5 2
-    - cd ..
+    - cd -
     - ls $BUILD_DIR
     - mkdir -p $COVERAGE_DIR
     - mkdir -p $COVERAGE_DIR/cobertura
