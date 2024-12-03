@@ -46,7 +46,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - mkdir -p $COVERAGE_DIR
     - mkdir -p $COVERAGE_DIR/cobertura
     - mkdir -p $COVERAGE_DIR/html
-    - |
+    - >
      gcovr . -r ${SRC_DIR} --exclude-unreachable-branches --print-summary --txt
       --cobertura-pretty --cobertura $COVERAGE_DIR/cobertura/coverage.xml
       --html-title 'ECOGEN Coverage Report: ${CI_COMMIT_REF_NAME}' --html-details --html-title --html $COVERAGE_DIR/html/coverage.html 
@@ -57,6 +57,16 @@ build-job:       # This job runs in the build stage, which runs first.
     expose_as: 'binary' # Can be downloaded from ci web interface
     expire_in: 2 days
     paths: ['$BUILD_DIR']
+
+  artifacts:
+    - name: coverage
+      untracked: true
+      paths: $COVERAGE_DIR/cobertura
+      expose_as: xml-coverage
+
+    - name: html-coverage
+       paths: $COVERAGE_DIR/html
+      expose_as: html-coverage
 
 #unit-test-job:   # This job runs in the test stage.
 #  stage: test    # It only starts when the job in the build stage completes successfully.
