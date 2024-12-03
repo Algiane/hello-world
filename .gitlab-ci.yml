@@ -60,7 +60,7 @@ build-job:       # This job runs in the build stage, which runs first.
     reports:
       coverage_report:
         coverage_format: cobertura
-        path: $BUILD_DIR/$COVERAGE_DIR/cobertura/coverage.xml
+        path: $COVERAGE_DIR/cobertura/coverage.xml
 
 
 #unit-test-job:   # This job runs in the test stage.
