@@ -10,3 +10,7 @@ void f() {
 void g() {
   puts("coucou from hw func g.");
 }
+
+void h() {
+  puts("coucou from hw func h.");
+}
