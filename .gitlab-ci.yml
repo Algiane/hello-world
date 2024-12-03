@@ -39,57 +39,65 @@ build-job:       # This job runs in the build stage, which runs first.
     - mkdir -p $BUILD_DIR
     - gcc -D BRANCH_1 -O0  -fPIC -fprofile-arcs -ftest-coverage -o $BUILD_DIR/a.out hello-world.c
     - echo "Compile complete."
-  artifacts:
-    expose_as: 'binary' # Can be downloaded from ci web interface
-    expire_in: 2 days
-    paths: ['$BUILD_DIR/a.out']
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  tags: ['ci.inria.fr', 'small'] # Inria's shared runners
-  image: ubuntu:latest # By default, an image of busyBox (minimal linux with no package manager and no compiler) is loaded 
-
-  script:
-    - echo "Running unit tests... This will take about 60 seconds."
     - cd $BUILD_DIR
     - ./a.out 2 5
     - ./a.out 5 2
-    - echo "Success"
-  artifacts:
-    expire_in: 2 days
-    paths: ['$BUILD_DIR/*.gcno','$BUILD_DIR/*.gcda']
-
-lint-test-job:   # This job also runs in the test stage.
-  stage: coverage    # It can run at the same time as unit-test-job (in parallel).
-  tags:
-    - ci.inria.fr
-    - small
-  image: ubuntu:latest # By default, an image of busyBox (minimal linux with no package manager and no compiler) is loaded 
-
-  script:
-    - apt update -y
-    - apt install -y g++ gcovr
-    - cd $BUILD_DIR
-    - ls
     - mkdir -p $COVERAGE_DIR
     - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
-  
-  coverage: '/^TOTAL.+?(\d+\%)$/'
+
+  coverage: '/^line.+?(\d+\%)$/'
 
   artifacts:
-    name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+    expose_as: 'binary' # Can be downloaded from ci web interface
     expire_in: 2 days
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: $COVERAGE_DIR/coverage.xml
+    paths: ['$BUILD_DIR']
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  tags:
-    - ci.inria.fr
-    - small
-  environment: production
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+#unit-test-job:   # This job runs in the test stage.
+#  stage: test    # It only starts when the job in the build stage completes successfully.
+#  tags: ['ci.inria.fr', 'small'] # Inria's shared runners
+#  image: ubuntu:latest # By default, an image of busyBox (minimal linux with no package manager and no compiler) is loaded 
+
+#  script:
+#    - echo "Running unit tests... This will take about 60 seconds."
+#    - cd $BUILD_DIR
+#    - ./a.out 2 5
+#    - ./a.out 5 2
+#    - echo "Success"
+#  artifacts:
+#    expire_in: 2 days
+#    paths: ['$BUILD_DIR/*.gcno','$BUILD_DIR/*.gcda']
+
+#lint-test-job:   # This job also runs in the test stage.
+#  stage: coverage    # It can run at the same time as unit-test-job (in parallel).
+#  tags:
+#    - ci.inria.fr
+#    - small
+#  image: ubuntu:latest # By default, an image of busyBox (minimal linux with no package manager and no compiler) is loaded 
+
+#  script:
+#    - apt update -y
+#    - apt install -y g++ gcovr
+#    - cd $BUILD_DIR
+#    - ls
+#    - mkdir -p $COVERAGE_DIR
+#    - gcovr --xml-pretty --exclude-unreachable-branches --print-summary -o $COVERAGE_DIR/coverage.xml --root ${CI_PROJECT_DIR}
+  
+#  coverage: '/^TOTAL.+?(\d+\%)$/'
+
+#  artifacts:
+#    name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+#    expire_in: 2 days
+#    reports:
+#      coverage_report:
+#        coverage_format: cobertura
+#        path: $COVERAGE_DIR/coverage.xml
+
+#deploy-job:      # This job runs in the deploy stage.
+#  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+#  tags:
+#    - ci.inria.fr
+#    - small
+#  environment: production
+#  script:
+#    - echo "Deploying application..."
+#    - echo "Application successfully deployed."
