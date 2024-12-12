@@ -16,6 +16,13 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
+# Workflow keyword to control when the pipeline runs
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'  # Only run the pipeline on the main branch
+    - if: '$CI_MERGE_REQUEST_ID'        # Also run the pipeline for merge requests
+    - when: never                       # Default rule (if no others match) disables the pipeline
+
 stages:          # List of stages for jobs, and their order of execution
   - configure
   - build
