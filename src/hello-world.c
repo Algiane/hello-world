@@ -16,9 +16,9 @@ int main(int argc, char* argv[]) {
 
   if ( argc != 3 ) {
     printf("Expected 2 integer args: %s <n> <m>\n",argv[0]);
-    exit(EXIT_FAILURE);  
+    exit(EXIT_FAILURE);
   }
-  
+
   a = atoi(argv[1]);
   b = atoi(argv[2]);
 
@@ -70,5 +70,5 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  return 0;
+  return (0);
 }
