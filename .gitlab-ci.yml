@@ -37,8 +37,10 @@ echo-job:
     - apt update -y
     - apt install git -y
     - echo "git symref $(git symbolic-ref HEAD --short)"
-    - echo "git rev-parse $(git rev-parse --abbrev-ref '@{u}')"
-    - echo "CI_VAR $CI_BUILD_REF_NAME"
+    - echo "git rev-parse upstream $(git rev-parse --abbrev-ref '@{u}')"
+    - echo "git rev-parse --abbrev-ref HEAD $(git rev-parse --abbrev-ref HEAD)"
+    - echo "git rev-parse --short HEAD $(git rev-parse --short HEAD)"
+    - echo "CI_COMMIT_REF_NAME  $CI_COMMIT_REF_NAME (deprec. CI_BUILD_REF_NAME)"
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
