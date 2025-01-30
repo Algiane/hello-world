@@ -56,7 +56,8 @@ final-job:
 
 check_pipeline_status:
   stage: always-run
-
+  script:
+    - echo "test pipeline st"
   after_script:
     - |
       PIPELINE_STATUS=$(curl --silent --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" \
