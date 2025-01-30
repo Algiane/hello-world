@@ -52,3 +52,13 @@ final-job:
 
   script:
     - echo "pipeline status - $TEST"
+
+
+check_pipeline_status:
+  script:
+    - |
+      PIPELINE_STATUS=$(curl --silent --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" \
+                               "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID" \
+                               | jq -r .status)
+      echo "The pipeline status is: $PIPELINE_STATUS" 
+ 
