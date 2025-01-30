@@ -34,11 +34,11 @@ job:
   allow_failure: yes
 
   script:
-    - exit 1
     - echo "job st $CI_JOB_STATUS"
     - TEST="$CI_JOB_STATUS"
     - echo "TEST - $TEST"
- 
+    - exit 1
+
   after_script:
     - TEST="$CI_JOB_STATUS"
 
