@@ -16,8 +16,6 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
-variables:
-  TEST: "success"
 
 stages:          # List of stages for jobs, and their order of execution
   - fail-job
@@ -38,9 +36,6 @@ job:
     - TEST="$CI_JOB_STATUS"
     - echo "TEST - $TEST"
     - exit 1
-
-  after_script:
-    - TEST="$CI_JOB_STATUS"
 
 
 final-job:
@@ -64,7 +59,7 @@ check_pipeline_status:
   script:
     - echo "test pipeline st $CI_JOB_TOKEN $CI_PROJECT_ID $CI_PIPELINE_ID"
     - >-
-      curl --header "PRIVATE-TOKEN: ${test_token}" "https://gitlab.inria.fr/api/v4/projects/${CI_PROJECT_ID}/pipelines/${CI_PIPELINE_ID}"
+      curl --header "PRIVATE-TOKEN: ${test_token}" "https://gitlab.inria.fr/api/v4/projects/${CI_PROJECT_ID}/pipelines/1106671"
   after_script:
     - |
       PIPELINE_STATUS=$(curl --silent --header "PRIVATE-TOKEN: ${test_token}" \
