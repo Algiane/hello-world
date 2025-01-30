@@ -35,7 +35,10 @@ job:
 
   script:
     - exit 1
-
+    - echo "job st $CI_JOB_STATUS"
+    - TEST="$CI_JOB_STATUS"
+    - echo "TEST - $TEST"
+ 
   after_script:
     - TEST="$CI_JOB_STATUS"
 
