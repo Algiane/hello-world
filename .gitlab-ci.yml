@@ -43,6 +43,7 @@ job:
     - TEST="$CI_JOB_STATUS"
 
 
+
 final-job:
   stage: always-run
   tags: ['ci.inria.fr', 'small']
@@ -55,7 +56,8 @@ final-job:
 
 
 check_pipeline_status:
-  script:
+
+  after_script:
     - |
       PIPELINE_STATUS=$(curl --silent --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" \
                                "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID" \
