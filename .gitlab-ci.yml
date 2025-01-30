@@ -56,6 +56,10 @@ final-job:
 
 check_pipeline_status:
   stage: always-run
+  dependencies:
+    - job
+    - final-job
+
   script:
     - echo "test pipeline st"
   after_script:
