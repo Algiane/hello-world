@@ -59,6 +59,7 @@ check_pipeline_status:
   dependencies:
     - job
     - final-job
+  needs: [job,final-job]
 
   script:
     - echo "test pipeline st"
