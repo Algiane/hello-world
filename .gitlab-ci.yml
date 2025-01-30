@@ -43,7 +43,6 @@ job:
     - TEST="$CI_JOB_STATUS"
 
 
-
 final-job:
   stage: always-run
   tags: ['ci.inria.fr', 'small']
@@ -56,6 +55,7 @@ final-job:
 
 
 check_pipeline_status:
+  stage: always-run
 
   after_script:
     - |
