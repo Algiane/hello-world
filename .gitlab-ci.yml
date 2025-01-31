@@ -17,8 +17,10 @@ job3:
 
 trigger_on_failure_job:
   script:
-    - echo "At least one job failed, triggering this job"
-  when: on_failure  # Runs if any previous job fails
+    - echo "At least one of the previous jobs failed, triggering this job"
+  rules:
+    - if: '$CI_JOB_STATUS == "failed"'  # Check if the job failed
+      when: always
   needs:
     - job1
     - job2
