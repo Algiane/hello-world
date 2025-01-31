@@ -62,7 +62,7 @@ check_pipeline_status:
       curl --header "PRIVATE-TOKEN: $TEST_TOKEN" "https://gitlab.inria.fr/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID"
   after_script:
     - |
-      PIPELINE_STATUS=$(curl --silent --header "PRIVATE-TOKEN: $test_token" \
+      PIPELINE_STATUS=$(curl --silent --header "PRIVATE-TOKEN: $TEST_TOKEN" \
                                "https://gitlab.inria.fr/api/v4/projects/$CI_PROJECT_ID/pipelines/$CI_PIPELINE_ID" \
                                | jq -r .status)
       echo "The pipeline status is: $PIPELINE_STATUS" 
