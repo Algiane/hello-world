@@ -21,7 +21,7 @@ job1:
 job2:
   rules:
     - !reference [.push_on_main, rules]
-    - !reference [.push_on_main, rules]
+    - !reference [.mr, rules]
 
   script:
     - echo "This job run for MR and push in main with var value $VAR"
