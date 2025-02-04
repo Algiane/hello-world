@@ -12,6 +12,7 @@
 workflow:
   rules:
     - !reference [.mr, rules]
+    - !reference [.push_on_main, rules]
 
 job1:
   script:
