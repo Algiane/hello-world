@@ -20,7 +20,7 @@ job1:
 job2:
   rules:
     - !reference [.push_on_main, rules]
-    - !reference [.mr, rules]
+    #- !reference [.mr, rules]
 
   script:
     - echo $CI_COMMIT_BRANCH
