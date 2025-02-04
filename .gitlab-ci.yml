@@ -23,4 +23,6 @@ job2:
     - !reference [.mr, rules]
 
   script:
+    - echo $CI_COMMIT_BRANCH
+    - echo $CI_DEFAULT_BRANCH
     - echo "This job run for MR and push in main with var value $VAR"
