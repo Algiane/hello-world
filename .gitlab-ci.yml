@@ -1,9 +1,9 @@
 .push_on_main:
   rules:
-    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
-      when: manual
-      variables:
-        VAR: "coucou"
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      #when: manual
+      #variables:
+      #  VAR: "coucou"
 
 .mr:
   rules:
