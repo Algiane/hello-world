@@ -1,15 +1,23 @@
+.push_on_main_rule:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  variables: VAR="coucou"
+
 workflow:
   rules:
     - if: '$CI_MERGE_REQUEST_ID'        # Run the pipeline for merge requests
-      when: manual
     - when: never                       # Default rule (if no others match) disables the pipeline
+
+
 
 job1:
   script:
-    - echo "This is job 1 - var value $VAR"
+    - echo "This job run for MR only with var value $VAR"
   allow_failure: true
 
 job2:
+  rules:
+    - !reference [.push_on_main, rules]
+  variables: !reference [.push_on_main, variables]
   script:
-    - echo "This is job 2 - var value $VAR"
-
+    - echo "This job run for MR and push in main with var value $VAR"
