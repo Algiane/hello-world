@@ -20,6 +20,9 @@ job2:
     - !reference [.push_on_main, rules]
     - !reference [.mr, rules]
 
+  dependencies:
+    - job1
+
   script:
     - echo $CI_COMMIT_BRANCH
     - echo $CI_DEFAULT_BRANCH
