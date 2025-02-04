@@ -1,7 +1,7 @@
 .push_on_main:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "main"'
-      #when: manual
+      when: always
       #variables:
       #  VAR: "coucou"
 
