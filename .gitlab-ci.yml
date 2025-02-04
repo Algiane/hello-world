@@ -1,27 +1,14 @@
+workflow:
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID'        # Run the pipeline for merge requests
+    - when: never                       # Default rule (if no others match) disables the pipeline
+
 job1:
   script:
-    - echo "This is job 1"
-    - exit 1  # Simulating failure
+    - echo "This is job 1 - var value $VAR"
   allow_failure: true
 
 job2:
   script:
-    - echo "This is job 2"
-    - exit 0  # Simulating success
+    - echo "This is job 2 - var value $VAR"
 
-job3:
-  script:
-    - echo "This is job 3"
-    - exit 1  # Simulating failure
-  allow_failure: true
-
-trigger_on_failure_job:
-  script:
-    - echo "At least one of the previous jobs failed, triggering this job"
-  rules:
-    - if: '$CI_JOB_STATUS == "failed"'  # Check if the job failed
-      when: always
-  needs:
-    - job1
-    - job2
-    - job3
