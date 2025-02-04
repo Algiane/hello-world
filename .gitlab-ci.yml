@@ -26,4 +26,4 @@ job2:
     - echo $CI_COMMIT_BRANCH
     - echo $CI_DEFAULT_BRANCH
     - echo $CI_COMMIT_REF_NAME
-    - echo "This job run for MR and push in main with var value $VAR"
+    - echo "This job run for MR and push in main with var value $VAR."
