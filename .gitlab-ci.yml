@@ -1,13 +1,12 @@
 .push_on_main:
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && !$CI_MERGE_REQUEST_ID
       variables:
         VAR: "coucou"
 
 .mr:
   rules:
     - if: '$CI_MERGE_REQUEST_ID'        # Run the pipeline for merge requests
-    - when: never                       # Default rule (if no others match) disables the pipeline
 
 workflow:
   rules:
