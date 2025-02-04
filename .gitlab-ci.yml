@@ -1,6 +1,6 @@
 .push_on_main:
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
       variables:
         VAR: "coucou"
 
@@ -25,4 +25,5 @@ job2:
   script:
     - echo $CI_COMMIT_BRANCH
     - echo $CI_DEFAULT_BRANCH
+    - echo $CI_COMMIT_REF_NAME
     - echo "This job run for MR and push in main with var value $VAR"
