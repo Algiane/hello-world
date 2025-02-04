@@ -7,7 +7,6 @@
 .mr:
   rules:
     - if: '$CI_MERGE_REQUEST_ID'        # Run the pipeline for merge requests
-    - when: never                       # Default rule (if no others match) disables the pipeline
 
 workflow:
   rules:
