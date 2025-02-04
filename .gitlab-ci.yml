@@ -1,4 +1,4 @@
-.push_on_main_rule:
+.push_on_main:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   variables:
