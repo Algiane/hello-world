@@ -1,19 +1,14 @@
-.push_on_main:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      variables:
-        VAR: "coucou"
+stages:          # List of stages for jobs, and their order of execution
+  - configure
+  - build
+  - test
+  - coverage
+  - deploy
 
-.mr:
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID'        # Run the pipeline for merge requests
-
-job1:
-  rules:
-    - !reference [.mr, rules]
-  script:
-    - echo "This job run for MR only with var value $VAR"
-  allow_failure: true
+variables:
+  BUILD_DIR: build-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+  COVERAGE_DIR: $BUILD_DIR/coverage
+  SRC_DIR: src
 
 conf:
   stage: configure
