@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
   b = atoi(argv[2]);
 
   /* Test coverage eval with preprocessor macros */
-  if ( VAL ) {
+    if ( VAL ) {
     printf("Hello, World!\n");
     assert(a!=0);
     assert(a!=0 && b!=0);
@@ -71,5 +71,5 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  return 0;
+  return (0);
 }
