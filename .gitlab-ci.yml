@@ -9,6 +9,10 @@ variables:
   BUILD_DIR: build-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
   COVERAGE_DIR: $BUILD_DIR/coverage
   SRC_DIR: src
+  TEST_LIST_FILES: |
+    file1.txt
+    file2.txt
+    file3.txt
 
 conf:
   stage: configure
@@ -16,6 +20,8 @@ conf:
     - echo "VAR=toto" | tee conf.env
     - mkdir my_dir
     - mkdir my_dir/dir2
+    - readarray -t FILES <<< "$TEST_LIST_FILES"
+    - echo "Array var:"" ${FILES[@]}"
 
   artifacts:
     expire_in: 1 hour
