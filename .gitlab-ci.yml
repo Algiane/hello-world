@@ -13,7 +13,7 @@ variables:
     file1.txt
     file2.txt
     file3.txt
-  ERR: |
+  ERR: | # Warning: next blank line is mandatory: it appends an empty value to the array
 
     2
 
