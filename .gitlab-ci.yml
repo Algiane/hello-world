@@ -13,6 +13,9 @@ variables:
     file1.txt
     file2.txt
     file3.txt
+  ERR: |
+
+    2
 
 conf:
   stage: configure
@@ -23,7 +26,9 @@ conf:
     - mkdir my_dir
     - mkdir my_dir/dir2
     - readarray -t FILES <<< "$TEST_LIST_FILES"
+    - readarray -t ERRS <<< "$ERR"
     - echo "Array var:"" ${FILES[@]}"
+    - echo "Array err:"" ${ERRS[@]}"
 
   artifacts:
     expire_in: 1 hour
