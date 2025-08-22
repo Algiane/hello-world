@@ -17,6 +17,7 @@ variables:
 conf:
   stage: configure
   tags: ['ci.inria.fr', 'small'] # Inria's shared runners
+  image: ubuntu:latest
   script:
     - echo "VAR=toto" | tee conf.env
     - mkdir my_dir
