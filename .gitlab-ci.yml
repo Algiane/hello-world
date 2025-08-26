@@ -9,9 +9,10 @@ variables:
   BUILD_DIR: build-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
   COVERAGE_DIR: $BUILD_DIR/coverage
   SRC_DIR: src
+  FILE: file2.txt
   TEST_LIST_FILES: |
     file1.txt
-    file2.txt
+    $FILE
     file3.txt
   ERR: | # Warning: next blank line is mandatory: it appends an empty value to the array
 
