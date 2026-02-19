@@ -17,19 +17,3 @@ build:
     - ${RUNNER}
   script:
     - echo "Compilation sur $RUNNER"
-
-test:
-  stage: test
-  parallel:
-    matrix:
-     - RUNNER: [macosx,linux]
-  tags:
-    - ${RUNNER}
-  needs:
-    - job: build
-      parallel:
-        matrix:
-          - RUNNER: ['$[[ matrix.RUNNER ]]']
-
-  script:
-    - echo "Tests sur $RUNNER, dépendant de la compilation $RUNNER"
