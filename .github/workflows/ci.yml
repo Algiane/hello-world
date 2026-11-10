@@ -28,11 +28,11 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version-file: 'hello-world/doc/doc2/.python-version' 
-          cache: 'pip' # caching pip dependencies
+          #cache: 'pip' # caching pip dependencies
       - name: doc
         run: |
           python3 --version
-          #pip install -r hello-world/doc/doc2/requirements.req
+          pip install -r hello-world/doc/doc2/requirements.req
 
       - name: compilation
         if: matrix.os == 'ubuntu-20.04'
