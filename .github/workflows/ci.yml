@@ -17,13 +17,22 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-20.04,macos-12]
+            os: [ubuntu-latest]
             #branch: [BRANCH_1,BRANCH_2]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: hello-world
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: 'pip' # caching pip dependencies
+      - name: doc
+        run: |
+          python3 --version
+          pip install -r requirements.txt
 
       - name: compilation
         if: matrix.os == 'ubuntu-20.04'
@@ -44,3 +53,10 @@ jobs:
           verbose: true
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+          steps:
+- uses: actions/checkout@v7
+- uses: actions/setup-python@v7
+  with:
+    python-version: '3.13'
+    cache: 'pip' # caching pip dependencies
