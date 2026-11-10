@@ -32,7 +32,7 @@ jobs:
       - name: doc
         run: |
           python3 --version
-          pip install -r hello-word/doc/doc2/requirements.req
+          pip install -r hello-world/doc/doc2/requirements.req
 
       - name: compilation
         if: matrix.os == 'ubuntu-20.04'
