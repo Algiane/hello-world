@@ -32,7 +32,7 @@ jobs:
       - name: doc
         run: |
           python3 --version
-          pip install -r doc/docs/requirements.txt
+          pip install -r doc/docs/requirements.req
 
       - name: compilation
         if: matrix.os == 'ubuntu-20.04'
